@@ -1,3 +1,9 @@
 [submodule "SHA-Intrinsics"]
 	path = SHA-Intrinsics
 	url = https://github.com/noloader/SHA-Intrinsics
+[submodule "crcutil"]
+	path = crcutil
+	url = https://github.com/rurban/crcutil.git
+[submodule "zlib"]
+	path = zlib
+	url = https://github.com/cloudflare/zlib.git
