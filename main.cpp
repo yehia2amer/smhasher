@@ -36,7 +36,7 @@ bool g_testDiff        = false;
 bool g_testDiffDist    = false;
 bool g_testMomentChi2  = false;
 bool g_testBIC         = false;
-//bool g_testLongNeighbors = false;
+bool g_testLongNeighbors = false;
 
 double g_speed = 0.0;
 
