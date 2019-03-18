@@ -6,6 +6,7 @@
 #include "AvalancheTest.h"
 #include "DifferentialTest.h"
 #include "HashMapTest.h"
+#include "LongNeighborTest.h"
 
 #include <stdio.h>
 #include <stdint.h>
@@ -62,8 +63,8 @@ TestOpts g_testopts[] =
   { g_testDiff,         "Diff" },
   { g_testDiffDist,     "DiffDist" },
   { g_testBIC, 	        "BIC" },
-  { g_testMomentChi2,   "MomentChi2" }
-  //{ g_testLongNeighbors,"LongNeighbors" }
+  { g_testMomentChi2,   "MomentChi2" },
+  { g_testLongNeighbors,"LongNeighbors" }
 };
 
 bool MomentChi2Test ( struct HashInfo *info );
@@ -1210,7 +1211,7 @@ void test ( hashfunc<hashtype> hash, HashInfo* info )
   // 10m30s with farmhash128_c
 
   // Not yet included for licensing reasons
-#if 0
+#if 1
   if(g_testLongNeighbors || (g_testAll && g_testExtra))
   {
     printf("[[[ LongNeighbors Tests ]]]\n\n");
