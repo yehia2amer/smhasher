@@ -557,7 +557,7 @@ void test ( hashfunc<hashtype> hash, HashInfo* info )
       result = false;
     } else {
       std::vector<std::string> words = HashMapInit(g_drawDiagram);
-      result &= HashMapTest<hashtype>(hash,info->hashbits,words,trials,g_drawDiagram);
+      result &= HashMapTest< hashtype, hashfunc<hashtype>(info->hash) > (words,trials,g_drawDiagram);
     }
     if(!result) printf("*********FAIL*********\n");
     printf("\n");
