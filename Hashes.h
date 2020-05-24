@@ -32,6 +32,8 @@
 
 #include "vmac.h"
 
+#include <hashx.h>
+
 //----------
 // These are _not_ hash functions (even though people tend to use crc32 as one...)
 
@@ -978,3 +980,15 @@ inline void aesnihash_test ( const void * key, int len, unsigned seed, void * ou
   *(uint64_t *)out = result;
 }
 #endif
+
+inline void hashx_test(const void* key, int len, unsigned seed, void* out) {
+    static unsigned curr_seed = -1;
+    static hashx_ctx* hash_instance = hashx_alloc(HASHX_COMPILED);
+
+    if (curr_seed != seed) {
+        hashx_make(hash_instance, &seed, sizeof(seed));
+        curr_seed = seed;
+    }
+
+    hashx_exec(hash_instance, key, len, out);
+}

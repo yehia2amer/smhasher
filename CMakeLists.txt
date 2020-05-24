@@ -392,6 +392,20 @@ endif()
 #    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DHAVE_FANOM_HASH")
 #ENDIF()
 
+set(hashx_sources
+hashx/src/blake2.c
+hashx/src/compiler.c
+hashx/src/compiler_x86.c
+hashx/src/context.c
+hashx/src/hashx.c
+hashx/src/program.c
+hashx/src/program_exec.c
+hashx/src/siphash.c
+hashx/src/siphash_rng.c
+hashx/src/virtual_memory.c)
+
+add_definitions(-DHASHX_BLOCK_MODE)
+
 add_library(
   SMHasherSupport
   AvalancheTest.cpp
@@ -460,12 +474,18 @@ add_library(
   vmac.cpp
   rijndael-alg-fst.c
   ${BLAKE3_SRC}
+  ${hashx_sources}
 )
 
 add_executable(
   SMHasher
   main.cpp
 )
+
+include_directories(SMHasherSupport}
+  hashx/include/)
+include_directories(SMHasher}
+  hashx/include/)
 
 target_link_libraries(
   SMHasher

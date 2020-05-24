@@ -367,6 +367,9 @@ HashInfo g_hashes[] =
   { t1ha0_ia32aes_avx2_test,   64, 0x8B38C599, "t1ha0_aes_avx2",  "Fast Positive Hash (machine-specific, requires AES-NI & AVX2)", GOOD },
 #  endif /* __AVX2__ */
 #endif /* T1HA0_AESNI_AVAILABLE */
+#if defined(__x86_64__)
+  { hashx_test,            256, 0x00000000, "HashX", "Hash function for proof of work and client puzzles", GOOD },
+#endif
 #ifdef HAVE_INT64
 # ifdef DEBUG
   { wysha,                 32, 0xD09A85B3, "wysha",          "wyhash v5 test", GOOD },
