@@ -981,6 +981,18 @@ inline void aesnihash_test ( const void * key, int len, unsigned seed, void * ou
 }
 #endif
 
+void hashx_seed_init(HashInfo *info, unsigned seed) {
+    static unsigned curr_seed = -1;
+    static hashx_ctx* hash_instance = hashx_alloc(HASHX_COMPILED);
+    info->ctx = hash_instance;
+
+    if (curr_seed != seed) {
+        hashx_make(hash_instance, &seed, sizeof(seed));
+        info->ctx = hash_instance;
+        curr_seed = seed;
+    }
+}
+
 inline void hashx_test(const void* key, int len, unsigned seed, void* out) {
     static unsigned curr_seed = -1;
     static hashx_ctx* hash_instance = hashx_alloc(HASHX_COMPILED);
@@ -989,6 +1001,5 @@ inline void hashx_test(const void* key, int len, unsigned seed, void* out) {
         hashx_make(hash_instance, &seed, sizeof(seed));
         curr_seed = seed;
     }
-
-    hashx_exec(hash_instance, key, len, out);
+  hashx_exec(hash_instance, key, len, out);
 }

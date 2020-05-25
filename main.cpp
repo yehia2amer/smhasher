@@ -415,6 +415,8 @@ void Hash_init (HashInfo* info) {
 #endif
   else if(info->hash == chaskey_test)
     chaskey_init();
+  else if(info->hash == hashx_test)
+    hashx_seed_init(info, 0);
 }
 
 //-----------------------------------------------------------------------------
@@ -450,6 +452,7 @@ template < typename hashtype >
 void test ( hashfunc<hashtype> hash, HashInfo* info )
 {
   const int hashbits = sizeof(hashtype) * 8;
+  hashx_ctx* hash_instance;
 
   if (g_testAll) {
     printf("-------------------------------------------------------------------------------\n");
@@ -457,6 +460,12 @@ void test ( hashfunc<hashtype> hash, HashInfo* info )
 
   // eventual initializers
   Hash_init (info);
+  if(info->hash == hashx_test) {
+    hash_instance = reinterpret_cast<hashx_ctx*>(info->ctx);
+    hash = [=](const void *key, const int len, const uint32_t seed, void *out) {
+      hashx_exec(hash_instance, key, len, out);
+    };
+  }
 
   //-----------------------------------------------------------------------------
   // Sanity tests
