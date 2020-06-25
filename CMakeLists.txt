@@ -280,12 +280,8 @@ IF(SSE4_2_FOUND)
   ELSE()
     message(WARNING "32bit only: CMAKE_SIZEOF_VOID_P=${CMAKE_SIZEOF_VOID_P}")
   ENDIF()
-  set(SIPHASH_SRC     siphash_ssse3.c)
 ELSEIF(SSE2_FOUND)
   set(SSE2_SRC        hasshe2.c)
-  set(SIPHASH_SRC     siphash_sse2.c)
-ELSE()
-  set(SIPHASH_SRC     siphash.c)
 ENDIF(SSE4_2_FOUND)
 
 IF(AES_FOUND)
@@ -371,16 +367,6 @@ if(AVX512_FOUND)
     "-DBLAKE3_USE_SSE41 -DBLAKE3_USE_AVX2 -DBLAKE3_USE_AVX512")
 endif()
 
-if (NOT ( CMAKE_BUILD_TYPE STREQUAL "Debug"))
-  # PMP breaks Debug build
-  if (NOT (CMAKE_BUILD_TYPE STREQUAL "asan"))
-    set(PMPML_SRC
-      PMP_Multilinear.cpp
-      PMP_Multilinear_64.cpp
-      PMP_Multilinear_test.cpp
-      )
-  endif()
-endif()
 #IF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/BeagleHashes_test.c")
 #    set(BEAGLE_SRC BeagleHashes_test.c)
 #    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DHAVE_BEAGLE_HASHES")
@@ -416,7 +402,6 @@ add_library(
   Platform.cpp
   Random.cpp
   sha1.cpp
-  ${SIPHASH_SRC}
   SpeedTest.cpp
   Spooky.cpp
   SpookyTest.cpp
@@ -456,7 +441,6 @@ add_library(
   sha2/sha512_224.c
   sha2/sha512_256.c
   sha3.c
-  ${PMPML_SRC}
   vmac.cpp
   rijndael-alg-fst.c
   ${BLAKE3_SRC}

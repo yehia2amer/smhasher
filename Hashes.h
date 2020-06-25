@@ -214,9 +214,6 @@ uint32_t MurmurOAAT ( const char * key, int len, uint32_t seed );
 void MurmurHash2_test      ( const void * key, int len, uint32_t seed, void * out );
 void MurmurHash2A_test     ( const void * key, int len, uint32_t seed, void * out );
 
-void siphash_test          ( const void * key, int len, uint32_t seed, void * out );
-void siphash13_test        ( const void * key, int len, uint32_t seed, void * out );
-void halfsiphash_test      ( const void * key, int len, uint32_t seed, void * out );
 extern "C" void chaskey_c  ( const void * key, int len, uint64_t seed, void * out );
 extern "C" void chaskey_init();
 inline void
@@ -887,34 +884,6 @@ inline void sha2ni_256_64(const void *key, int len, uint32_t seed, void *out)
 }
 #endif
 
-#ifdef _MAIN_CPP
-#include "farsh.h"
-#else
-#ifdef __AVX2__
-#define FARSH_AVX2
-#elif defined HAVE_SSE42
-#define FARSH_SSE2
-#endif
-#include "farsh.c"
-#endif
-// objsize: 0-3b0: 944
-inline void farsh32_test ( const void * key, int len, unsigned seed, void * out )
-{
-  farsh_n(key,len,0,1,seed,out);
-}
-inline void farsh64_test ( const void * key, int len, unsigned seed, void * out )
-{
-  farsh_n(key,len,0,2,seed,out);
-}
-inline void farsh128_test ( const void * key, int len, unsigned seed, void * out )
-{
-  farsh_n(key,len,0,4,seed,out);
-}
-inline void farsh256_test ( const void * key, int len, unsigned seed, void * out )
-{
-  farsh_n(key,len,0,8,seed,out);
-}
-
 extern "C" {
 #include "blake3/blake3_impl.h"
 // The C API, serially
@@ -961,10 +930,6 @@ inline void blake3_64 ( const void * key, int len, unsigned seed, void * out )
 
 //64 objsize: a50-f69: 1305
 //32 objsize: 1680-1abc: 1084
-
-#ifndef DEBUG
-#include "PMP_Multilinear_test.h"
-#endif
 
 #include "beamsplitter.h"
 #include "discohash.h"

@@ -194,10 +194,6 @@ HashInfo g_hashes[] =
   { VHASH_32,             32, 0xF0077651, "VHASH_32",    "VHASH_32 by Ted Krovetz and Wei Dai", POOR },
   { VHASH_64,             64, 0xF97D84FE, "VHASH_64",    "VHASH_64 by Ted Krovetz and Wei Dai", POOR },
   { MicroOAAT_test,       32, 0x16F1BA97, "MicroOAAT",   "Small non-multiplicative OAAT (by funny-falcon)", POOR },
-  { farsh32_test,         32, 0xBCDE332C, "farsh32",     "FARSH 32bit", POOR }, // insecure
-  { farsh64_test,         64, 0xDE2FDAEE, "farsh64",     "FARSH 64bit", POOR }, // insecure
-  //{ farsh128_test,     128, 0x82B6CBEC, "farsh128",    "FARSH 128bit", POOR },
-  //{ farsh256_test,     256, 0xFEBEA0BC, "farsh256",    "FARSH 256bit", POOR },
   { jodyhash32_test,      32, 0xFB47D60D, "jodyhash32",  "jodyhash, 32-bit (v5)", POOR },
 #ifdef HAVE_INT64
   { jodyhash64_test,      64, 0x9F09E57F, "jodyhash64",  "jodyhash, 64-bit (v5)", POOR },
@@ -221,13 +217,6 @@ HashInfo g_hashes[] =
   { PMurHash32_test,      32, 0xB0F57EE3, "PMurHash32",  "Shane Day's portable-ized MurmurHash3 for x86, 32-bit", POOR },
   { MurmurHash3_x86_128, 128, 0xB3ECE62A, "Murmur3C",    "MurmurHash3 for x86, 128-bit", POOR },
 #ifndef DEBUG
-# ifndef HAVE_ASAN
-  // TODO seeded
-  { PMPML_32_CPP,         32, 0xEAE2E3CC, "PMPML_32",    "PMP_Multilinear 32-bit unseeded", POOR },
-#  if defined(_WIN64) || defined(__x86_64__)
-  { PMPML_64_CPP,         64, 0x584CC9DF, "PMPML_64",    "PMP_Multilinear 64-bit unseeded", POOR },
-#  endif
-# endif
 #endif
   { fasthash64_test,      64, 0xA16231A7, "fasthash64",  "fast-hash 64bit", POOR },
   { CityHash32_test,      32, 0x5C28AD62, "City32",      "Google CityHash32WithSeed (old)", POOR },
@@ -277,18 +266,12 @@ HashInfo g_hashes[] =
   // different verif on gcc vs clang
   { floppsyhash_64,       64, 0x0,        "floppsyhash", "slow hash designed for floating point hardware", GOOD },
   { chaskey_test,         64, 0x81A90131, "chaskey",     "mouha.be/chaskey/ with added seed support", GOOD },
-  { siphash_test,         64, 0xC58D7F9C, "SipHash",     "SipHash 2-4 - SSSE3 optimized", GOOD },
-  { halfsiphash_test,     32, 0xA7A05F72, "HalfSipHash", "HalfSipHash 2-4, 32bit", GOOD },
   { GoodOAAT_test,        32, 0x7B14EEE5, "GoodOAAT",    "Small non-multiplicative OAAT", GOOD },
   // as in rust and swift:
-  { siphash13_test,       64, 0x29C010BF, "SipHash13",   "SipHash 1-3 - SSSE3 optimized", GOOD },
-#ifndef _MSC_VER
-  { tsip_test,            64, 0x8E48155B, "TSip",        "Damian Gryski's Tiny SipHash variant", GOOD },
 #ifdef HAVE_INT64
   { seahash_test,         64, 0xF0374078, "seahash",     "seahash (64-bit, little-endian)", GOOD },
   { seahash32low,         32, 0x712F0EE8, "seahash32low","seahash - lower 32bit", GOOD },
 #endif /* HAVE_INT64 */
-#endif /* !MSVC */
 #if defined(__SSE4_2__) && defined(__x86_64__)
   { clhash_test,          64, 0x00000000, "clhash",      "carry-less mult. hash -DBITMIX (64-bit for x64, SSE4.2)", GOOD },
 #endif
